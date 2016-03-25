@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd /home/tessera
+
 # https://azure.microsoft.com/en-us/documentation/articles/hdinsight-hadoop-script-actions-linux/
 # Import the helper method module.
 wget -O /tmp/HDInsightUtilities-v01.sh -q https://hdiconfigactions.blob.core.windows.net/linuxconfigactionmodulev01/HDInsightUtilities-v01.sh && source /tmp/HDInsightUtilities-v01.sh && rm -f /tmp/HDInsightUtilities-v01.sh
@@ -63,10 +65,6 @@ eVal 'LD_LIBRARY_PATH=/usr/local/lib:/usr/hdp/'$HDP_VERSION'/lib/native:$LD_LIBR
 
 echo 'RSTUDIO_DISABLE_SECURE_DOWNLOAD_WARNING=1' | sudo tee -a /usr/lib/R/etc/Renviron
 
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server" | sudo tee -a /etc/environment
-echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server" | sudo tee -a /etc/R/Renviron
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server
-
 # echo 'LD_LIBRARY_PATH=/usr/local/lib:/home/hadoop/lib/native:/usr/lib64:/usr/local/cuda/lib64:/usr/local/cuda/lib:$LD_LIBRARY_PATH' | sudo tee -a /etc/R/Renviron
 # echo '/usr/java/jdk1.7.0_65/jre/lib/amd64/server/' | sudo tee -a  /etc/ld.so.conf.d/jre.conf
 # echo '/usr/java/jdk1.7.0_65/jre/lib/amd64/' | sudo tee -a  /etc/ld.so.conf.d/jre.conf
@@ -104,6 +102,12 @@ rm -rf protobuf-2.5.0
 rm protobuf-2.5.0.tar.bz2
 rm Rhipe_0.75.2_hadoop-2.tar.gz
 
+# /usr/local/lib:/usr/hdp/2.2.9.1-7/lib/native:$LD_LIBRARY_PATH:@JAVA_LD@
+
+# echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server" | sudo tee -a /etc/environment
+# echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server" | sudo tee -a /etc/R/Renviron
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server
+
 ## RStudio Server, etc.
 
 sudo su - -c "R -e \"install.packages('shiny')\""
@@ -132,7 +136,7 @@ hadoop fs -mkdir -p /user/tessera/bin
 
 sudo chmod -R 755 /usr/local/lib/R/site-library
 
-sudo su - tessera -c "R -e \"library(Rhipe); rhinit(); hdfs.setwd('/user/tessera/bin'); bashRhipeArchive('R.Pkg')\""
+# sudo su - tessera -c "R -e \"library(Rhipe); rhinit(); hdfs.setwd('/user/tessera/bin'); bashRhipeArchive('R.Pkg')\""
 
 # library(Rhipe)
 # rhinit()
