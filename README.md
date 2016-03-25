@@ -49,7 +49,7 @@ hdfs.setwd("/user/tessera/bin")
 bashRhipeArchive("R.Pkg")
 ```
 
-*Make sure you monitor your cluster and shut it down when you are not using it!**
+**Make sure you monitor your cluster and shut it down when you are not using it!**
 
 Note that currently although we have installed RStudio Server on the head node, we have not figured out how to access the server over the web (it appears opening ports in Azure is not so easy), but we are working on it.  In the mean time, a utility like [rmote](https://github.com/hafen/rmote) can be useful for getting graphics back from the remote head node.
 
